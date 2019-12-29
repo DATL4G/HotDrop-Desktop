@@ -1,0 +1,39 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.61'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+javafx {
+    modules = ['javafx.controls', 'javafx.media', 'javafx.graphics']
+}
+
+group 'de.datlag.hotdrop'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    google()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation 'no.tornado:tornadofx:1.7.19'
+
+    implementation 'org.openjfx:javafx:11.0.2'
+    implementation 'org.openjfx:javafx-base:11.0.2'
+    implementation 'org.openjfx:javafx-controls:11.0.2'
+
+    implementation 'org.kordamp.ikonli:ikonli-core:11.3.4'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:11.3.4'
+    implementation 'org.kordamp.ikonli:ikonli-material-pack:11.3.4'
+    implementation 'org.kordamp.ikonli:ikonli-materialdesign-pack:11.3.4'
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:11.3.4'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
