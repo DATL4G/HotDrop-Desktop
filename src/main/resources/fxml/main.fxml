@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import view.FAB?>
 
-<BorderPane minHeight="400.0" minWidth="600.0" stylesheets="@./../css/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="MainView">
+<BorderPane minHeight="400.0" minWidth="600.0" stylesheets="@./../css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainView">
     <top>
         <HBox styleClass="toolbar" BorderPane.alignment="CENTER">
             <padding>
@@ -25,6 +28,11 @@
         </HBox>
     </top>
     <center>
+        <FAB ripplerFill="#0f36f8" styleClass="fab" onMouseClicked="#dialog">
+            <graphic>
+                <FontIcon iconColor="WHITE" iconLiteral="gmi-search" iconSize="24" />
+            </graphic>
+        </FAB>
     </center>
     <bottom>
     </bottom>

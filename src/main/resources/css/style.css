@@ -11,12 +11,20 @@ FontIcon:hover {
     -fx-cursor: hand;
 }
 
+* {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 18;
+}
+
 .toolbar {
     -fx-background-color: #db3236;
     -fx-font-weight: bold;
 }
 
-* {
-    -fx-font-family: 'Poppins';
-    -fx-font-size: 18;
+.fab {
+    -jfx-button-type: RAISED;
+    -fx-background-color: #db3236;
+    -fx-text-fill: white;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
 }
