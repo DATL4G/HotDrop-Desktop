@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+<?import view.*?>
+
+<StackPane prefHeight="400" prefWidth="600"
+           style="-fx-background-color: transparent;"
+           viewOrder="10" xmlns="http://javafx.com/javafx/10.0.2-internal"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="fragments.SearchFragment">
+
+    <children>
+        <FAB styleClass="fab" alignment="CENTER">
+            <graphic>
+                <FontIcon iconColor="WHITE" iconLiteral="gmi-search" iconSize="24" text=""/>
+            </graphic>
+        </FAB>
+    </children>
+
+</StackPane>

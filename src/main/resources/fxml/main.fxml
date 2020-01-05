@@ -29,7 +29,7 @@
     <center>
         <AnchorPane id="centerPane" fx:id="centerPane" BorderPane.alignment="CENTER">
             <children>
-                <HBox styleClass="settings" AnchorPane.rightAnchor="0">
+                <HBox viewOrder="9" styleClass="settings" AnchorPane.rightAnchor="0">
                     <padding>
                         <Insets bottom="5" left="5" right="5" top="5" />
                     </padding>
@@ -47,7 +47,7 @@
                     </children>
                 </HBox>
 
-                <FAB styleClass="fab" AnchorPane.rightAnchor="16" AnchorPane.bottomAnchor="16">
+                <FAB viewOrder="9" styleClass="fab" AnchorPane.rightAnchor="16" AnchorPane.bottomAnchor="16">
                     <graphic>
                         <FontIcon iconColor="WHITE" iconLiteral="gmi-cloud" iconSize="24" onMouseClicked="#infoLayout" />
                     </graphic>

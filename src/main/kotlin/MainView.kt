@@ -1,12 +1,10 @@
-import com.jfoenix.controls.JFXListView
-import fragments.TestFragment
+import fragments.ChooseDeviceFragment
+import fragments.SearchFragment
 import javafx.fxml.FXML
-import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.BorderPane
 import tornadofx.View
-import tornadofx.label
 import utils.DialogBuilder
 
 
@@ -14,14 +12,21 @@ class MainView : View("HotDrop") {
     override val root : BorderPane by fxml("/fxml/main.fxml", true)
 
     private val centerPane: AnchorPane by fxid()
-    private val testFragment = TestFragment()
-    private var listView: JFXListView<Label>
+    private val searchFragment = SearchFragment()
+    private val chooseDeviceFragment = ChooseDeviceFragment()
+    private var settingsArray: Array<String>
 
     @FXML
     fun settingsDialog() {
         val dialogBuilder = DialogBuilder(primaryStage.scene)
             .setTitle("Settings")
-            .setView(listView)
+            .setListItems(settingsArray, object: DialogBuilder.ItemClickListener{
+                override fun onSelect(item: Int) {
+                    when(item) {
+                        2 -> openURL("https://paypal.me/datlag")
+                    }
+                }
+            })
             .setPositiveButton("Close", "#db3236")
             .create()
 
@@ -30,16 +35,17 @@ class MainView : View("HotDrop") {
 
     @FXML
     fun infoLayout(mouseEvent: MouseEvent) {
-        centerPane.children.remove(testFragment.root)
+        centerPane.children.remove(searchFragment.root)
+        centerPane.add(chooseDeviceFragment)
     }
 
     init {
-        centerPane.add(testFragment)
+        centerPane.add(searchFragment)
+        settingsArray = arrayOf("Account", "Connectivity", "Donate")
+    }
 
-        listView = JFXListView()
-        listView.items.add(label("Account"))
-        listView.items.add(label("Connectivity"))
-        listView.items.add(label("Donate"))
+    fun openURL(url: String) {
+        app.hostServices.showDocument("https://paypal.me/datlag")
     }
 }
 

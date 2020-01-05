@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+<?import view.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox alignment="CENTER" prefHeight="-Infinity" prefWidth="96" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="5" top="5" left="5" right="5"/>
+    </padding>
+    <children>
+        <FAB alignment="CENTER" styleClass="fab" id="deviceFAB" fx:id="deviceFAB">
+            <graphic>
+                <FontIcon id="deviceIcon" fx:id="deviceIcon" iconColor="WHITE" iconLiteral="gmi-cloud" iconSize="24" />
+            </graphic>
+        </FAB>
+        <Label text="Device" id="deviceName" fx:id="deviceName" />
+    </children>
+</VBox>
