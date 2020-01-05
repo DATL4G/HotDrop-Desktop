@@ -1,5 +1,6 @@
 package utils
 
+import com.jfoenix.animation.alert.JFXAlertAnimation
 import com.jfoenix.controls.JFXAlert
 import com.jfoenix.controls.JFXButton
 import com.jfoenix.controls.JFXDialogLayout
@@ -86,6 +87,7 @@ class DialogBuilder internal constructor(scene: Scene) {
         alert?.let {
             it.initModality(Modality.APPLICATION_MODAL)
             it.isOverlayClose = false
+            it.animation = JFXAlertAnimation.BOTTOM_ANIMATION
         }
 
         jfxDialogLayout = JFXDialogLayout()

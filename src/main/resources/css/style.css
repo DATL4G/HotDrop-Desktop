@@ -24,16 +24,16 @@ FontIcon:hover {
 .fab {
     -jfx-button-type: RAISED;
     -fx-background-color: #db3236;
-    -jfx-rippler-fill: #000000;
-    -fx-rippler-fill: #000000;
+    -jfx-rippler-fill: #a2000f;
+    -fx-rippler-fill: #a2000f;
     -fx-text-fill: white;
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
 }
 
 .fab .jfx-rippler{
-    -jfx-rippler-fill: #000000;
-    -fx-rippler-fill: #000000;
+    -jfx-rippler-fill: #a2000f;
+    -fx-rippler-fill: #a2000f;
 }
 
 .settings * {
