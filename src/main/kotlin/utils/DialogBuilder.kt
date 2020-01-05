@@ -45,7 +45,7 @@ class DialogBuilder internal constructor(scene: Scene) {
         return this
     }
 
-    fun setPositiveButton(buttonText: String, color: String? = null, listner: OnClickListener? = null): DialogBuilder {
+    fun setPositiveButton(buttonText: String, color: String? = null, listener: OnClickListener? = null): DialogBuilder {
         color?.let {
             positiveButtonPaint = Paint.valueOf(it)
         }
@@ -57,13 +57,13 @@ class DialogBuilder internal constructor(scene: Scene) {
             it.buttonType = JFXButton.ButtonType.FLAT
             it.setOnAction {
                 alert?.hideWithAnimation()
-                listner?.onClick()
+                listener?.onClick()
             }
         }
         return this
     }
 
-    fun setNegativeButton(buttonText: String, color: String?, listner: OnClickListener?): DialogBuilder {
+    fun setNegativeButton(buttonText: String, color: String?, listener: OnClickListener?): DialogBuilder {
         color?.let {
             negativeButtonPaint = Paint.valueOf(it)
         }
@@ -75,7 +75,7 @@ class DialogBuilder internal constructor(scene: Scene) {
             it.buttonType = JFXButton.ButtonType.FLAT
             it.setOnAction {
                 alert?.hideWithAnimation()
-                listner?.onClick()
+                listener?.onClick()
             }
         }
         return this

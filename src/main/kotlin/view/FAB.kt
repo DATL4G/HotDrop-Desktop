@@ -1,7 +1,6 @@
 package view
 
 import com.jfoenix.controls.JFXButton
-import javafx.scene.Node
 
 class FAB() : JFXButton() {
 
@@ -16,5 +15,7 @@ class FAB() : JFXButton() {
 
         prefHeight = 50.0
         prefWidth = 50.0
+
+        text = null
     }
 }

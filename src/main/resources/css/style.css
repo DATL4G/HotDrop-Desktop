@@ -24,7 +24,41 @@ FontIcon:hover {
 .fab {
     -jfx-button-type: RAISED;
     -fx-background-color: #db3236;
+    -jfx-rippler-fill: #000000;
+    -fx-rippler-fill: #000000;
     -fx-text-fill: white;
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
+}
+
+.fab .jfx-rippler{
+    -jfx-rippler-fill: #000000;
+    -fx-rippler-fill: #000000;
+}
+
+.settings * {
+    -fx-icon-color: #000000;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.jfx-list-view {
+    -fx-background-insets: 0;
+    -jfx-cell-horizontal-margin: 0;
+    -jfx-cell-vertical-margin: 5;
+    -jfx-vertical-gap: 10;
+    -jfx-expanded: false;
+    -fx-pref-width: 200;
+}
+
+.jfx-list-cell > .label {
+    -fx-text-fill: BLACK;
+}
+
+.jfx-list-cell .jfx-rippler {
+    -jfx-rippler-fill: #000000;
+}
+
+.list-cell:even, .list-cell:odd {
+    -fx-background-color: white;
 }
