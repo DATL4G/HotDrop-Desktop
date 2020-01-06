@@ -8,5 +8,6 @@ class SearchFragment : AdvancedFragment() {
 
     init {
         applyMaxSize()
+        applyZIndex()
     }
 }

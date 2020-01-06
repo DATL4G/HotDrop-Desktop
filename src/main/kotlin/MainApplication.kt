@@ -14,8 +14,8 @@ class MainApplication : App(MainView::class) {
 
     private fun stageSetup(stage: Stage) {
         stage.icons += Image("/images/ic_launcher.png")
-        stage.minHeight = 400.0
-        stage.minWidth = 600.0
+        stage.minHeight = 500.0
+        stage.minWidth = 700.0
         stage.isAlwaysOnTop = false
         stage.isMaximized = false
         stage.isFullScreen = false

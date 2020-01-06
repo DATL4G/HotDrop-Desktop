@@ -4,8 +4,9 @@ import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Label
 import org.kordamp.ikonli.javafx.FontIcon
+import utils.Device
 
-class DeviceListItem(private val item: String, private val clickListener: ClickListener): Label() {
+class DeviceListItem(private val item: Device, private val clickListener: ClickListener): Label() {
 
     @FXML
     private var deviceFAB: FAB? = null
@@ -23,8 +24,12 @@ class DeviceListItem(private val item: String, private val clickListener: ClickL
         graphic = fxmlLoader.load()
 
         deviceName?.let {
-            it.text = item
+            it.text = item.name
         }
+        deviceIcon?.let {
+            it.iconLiteral = item.iconName
+        }
+
         deviceFAB?.let {
             it.setOnMouseClicked {
                 clickListener.onClick(item)
@@ -33,6 +38,6 @@ class DeviceListItem(private val item: String, private val clickListener: ClickL
     }
 
     interface ClickListener {
-        fun onClick(item: String)
+        fun onClick(item: Device)
     }
 }

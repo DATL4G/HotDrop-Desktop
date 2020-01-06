@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="fragments.InfoFragment"
+           prefHeight="400.0" prefWidth="600.0"
+           style="-fx-background-color: #db3236;">
+
+    <JFXButton text="" onMouseClicked="#closeFragment" StackPane.alignment="TOP_RIGHT" viewOrder="12">
+        <StackPane.margin>
+            <Insets bottom="5" top="5" right="5" left="5" />
+        </StackPane.margin>
+        <graphic>
+            <FontIcon iconLiteral="gmi-close" iconSize="24" iconColor="WHITE" />
+        </graphic>
+    </JFXButton>
+
+    <VBox StackPane.alignment="CENTER" alignment="CENTER" viewOrder="13">
+        <FontIcon iconLiteral="gmi-screen-share" iconSize="72" iconColor="WHITE" />
+        <Label text="Easily send files and folders from one device to another." textFill="WHITE" />
+        <HBox alignment="CENTER">
+            <JFXButton text="" onMouseClicked="#openGithub">
+                <graphic>
+                    <FontIcon iconLiteral="fa-github" iconSize="24" iconColor="WHITE" />
+                </graphic>
+            </JFXButton>
+            <JFXButton text="" onMouseClicked="#showDependencies">
+                <graphic>
+                    <FontIcon iconLiteral="gmi-code" iconSize="24" iconColor="WHITE" />
+                </graphic>
+            </JFXButton>
+            <JFXButton text="" onMouseClicked="#showAbout">
+                <graphic>
+                    <FontIcon iconLiteral="gmi-help-outline" iconSize="24" iconColor="WHITE" />
+                </graphic>
+            </JFXButton>
+        </HBox>
+    </VBox>
+
+</StackPane>

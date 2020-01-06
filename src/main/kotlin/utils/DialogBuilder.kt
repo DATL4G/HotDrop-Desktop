@@ -53,9 +53,10 @@ class DialogBuilder internal constructor(scene: Scene) {
             positiveButtonPaint = Paint.valueOf(it)
         }
 
-        positiveButton = JFXButton(buttonText)
+        positiveButton = JFXButton(buttonText.toUpperCase())
         positiveButton?.let {
             it.isDefaultButton = true
+            it.isCancelButton = false
             it.textFill = positiveButtonPaint
             it.buttonType = JFXButton.ButtonType.FLAT
             it.setOnAction {
@@ -71,8 +72,9 @@ class DialogBuilder internal constructor(scene: Scene) {
             negativeButtonPaint = Paint.valueOf(it)
         }
 
-        negativeButton = JFXButton(buttonText)
+        negativeButton = JFXButton(buttonText.toUpperCase())
         negativeButton?.let {
+            it.isDefaultButton = false
             it.isCancelButton = true
             it.textFill = negativeButtonPaint
             it.buttonType = JFXButton.ButtonType.FLAT
@@ -136,10 +138,6 @@ class DialogBuilder internal constructor(scene: Scene) {
 
         alert?.setContent(jfxDialogLayout)
         return alert
-    }
-
-    fun show() {
-        alert?.showAndWait()
     }
 
     interface OnClickListener{

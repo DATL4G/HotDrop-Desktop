@@ -1,22 +1,32 @@
 package extends
 
+import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.layout.AnchorPane
 import tornadofx.Fragment
+import tornadofx.removeFromParent
 
-abstract class AdvancedFragment() : Fragment() {
+abstract class AdvancedFragment(name: String? = null, icon: Node? = null) : Fragment(name, icon) {
     fun openURL(url: String) {
-        app.hostServices.showDocument("https://paypal.me/datlag")
+        app.hostServices.showDocument(url)
     }
 
     fun applyMaxSize() {
-        AnchorPane.setBottomAnchor(root, 0.0)
-        AnchorPane.setLeftAnchor(root, 0.0)
-        AnchorPane.setRightAnchor(root, 0.0)
-        AnchorPane.setTopAnchor(root, 0.0)
+        AnchorPane.setBottomAnchor(this.root, 0.0)
+        AnchorPane.setLeftAnchor(this.root, 0.0)
+        AnchorPane.setRightAnchor(this.root, 0.0)
+        AnchorPane.setTopAnchor(this.root, 0.0)
     }
 
     fun applyZIndex(order: Double = 10.0) {
         root.viewOrder = order
+    }
+
+    fun hideFragment() {
+        this.root.parent.requestLayout()
+        this.root.isFocusTraversable = false
+        this.root.isDisable = true
+        this.root.parent.requestFocus()
+        this.root.removeFromParent()
     }
 }
