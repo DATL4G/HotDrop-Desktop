@@ -1,6 +1,33 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'no.tornado:fxlauncher-gradle-plugin:1.0.21'
+
+        classpath 'javax.xml.bind:jaxb-api:2.3.1'
+        classpath 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+        classpath 'com.sun.xml.bind:jaxb-impl:2.3.1'
+    }
+}
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.61'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+apply plugin: 'java'
+apply plugin: 'no.tornado.fxlauncher'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+fxlauncher() {
+    applicationVendor 'DatLag'
+    applicationMainClass 'kotlin.MainApplication'
+    applicationUrl 'http://hotdrop.datlag.de'
+    acceptDowngrade false
+    deployTarget './../../'
 }
 
 javafx {
@@ -31,6 +58,8 @@ dependencies {
     implementation 'org.kordamp.ikonli:ikonli-material-pack:11.3.4'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign-pack:11.3.4'
     implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:11.3.4'
+
+    implementation "io.reactivex.rxjava3:rxjava:3.0.0-RC7"
 }
 
 compileKotlin {

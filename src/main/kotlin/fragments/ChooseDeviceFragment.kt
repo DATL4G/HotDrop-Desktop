@@ -24,8 +24,6 @@ class ChooseDeviceFragment(devices: Array<Device>) : AdvancedFragment() {
             }
         }
 
-        val computerName = InetAddress.getLocalHost().hostName
-
         val deviceArrayList = ArrayList<DeviceListItem>()
         devices.forEach {
             deviceArrayList.add(DeviceListItem(it, deviceClickListener))

@@ -39,7 +39,7 @@
                                 <FontIcon iconLiteral="gmi-tune" iconSize="24" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton text="" id="infoIcon" fx:id="infoIcon">
+                        <JFXButton text="" onMouseClicked="#infoLayout">
                             <graphic>
                                 <FontIcon iconLiteral="gmi-info-outline" iconSize="24" />
                             </graphic>
@@ -55,6 +55,4 @@
             </children>
         </AnchorPane>
     </center>
-    <bottom>
-    </bottom>
 </BorderPane>
