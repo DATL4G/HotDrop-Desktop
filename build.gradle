@@ -59,7 +59,7 @@ dependencies {
     implementation 'org.kordamp.ikonli:ikonli-materialdesign-pack:11.3.4'
     implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:11.3.4'
 
-    implementation "io.reactivex.rxjava3:rxjava:3.0.0-RC7"
+    implementation "io.reactivex.rxjava3:rxjava:3.0.1"
 }
 
 compileKotlin {
