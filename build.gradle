@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'no.tornado:fxlauncher-gradle-plugin:1.0.21'
+        classpath 'no.tornado:fxlauncher-gradle-plugin:1.0.21.1'
 
         classpath 'javax.xml.bind:jaxb-api:2.3.1'
         classpath 'com.sun.xml.bind:jaxb-core:2.3.0.1'
