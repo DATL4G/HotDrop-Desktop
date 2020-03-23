@@ -45,7 +45,7 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation 'no.tornado:tornadofx:1.7.19'
+    implementation 'no.tornado:tornadofx:1.7.20'
 
     implementation 'org.openjfx:javafx:11.0.2'
     implementation 'org.openjfx:javafx-base:11.0.2'
