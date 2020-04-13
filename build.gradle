@@ -53,7 +53,7 @@ dependencies {
 
     implementation 'com.jfoenix:jfoenix:9.0.8'
 
-    implementation 'org.kordamp.ikonli:ikonli-core:11.3.4'
+    implementation 'org.kordamp.ikonli:ikonli-core:11.4.0'
     implementation 'org.kordamp.ikonli:ikonli-javafx:11.3.4'
     implementation 'org.kordamp.ikonli:ikonli-material-pack:11.3.4'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign-pack:11.3.4'
