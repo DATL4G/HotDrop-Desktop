@@ -57,7 +57,7 @@ dependencies {
     implementation 'org.kordamp.ikonli:ikonli-javafx:11.3.4'
     implementation 'org.kordamp.ikonli:ikonli-material-pack:11.3.4'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign-pack:11.3.4'
-    implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:11.3.4'
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:11.4.0'
 
     implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
     implementation 'org.json:json:20190722'
