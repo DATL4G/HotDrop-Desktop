@@ -1,10 +1,10 @@
 package p2p.cu2.discovery
 
 import p2p.cu2.model.Host
-import java.io.IOException
-import java.net.*
+import java.lang.Exception
+import java.net.DatagramSocket
+import java.net.NetworkInterface
 import java.util.*
-
 
 class UdpServerService {
 
@@ -14,6 +14,7 @@ class UdpServerService {
     private var isHostClientToo = false
     private var listener: UdpBroadcastListener? = null
     private var timer = Timer()
+    private var port = 8888
 
     private fun initCurrentDeviceIps() {
         try {
@@ -24,7 +25,7 @@ class UdpServerService {
                 val networkInterface = interfaces.nextElement()
 
                 try {
-                    if(networkInterface.isLoopback || !networkInterface.isUp) {
+                    if (networkInterface.isLoopback || !networkInterface.isUp) {
                         continue
                     }
 
@@ -33,11 +34,11 @@ class UdpServerService {
                         val inetAddress = inetAddresses.nextElement()
                         updatedIps.add(inetAddress.hostAddress)
                     }
-                } catch (e: SocketException) {}
+                } catch (e: Exception) {}
             }
             currentHostIps.retainAll(updatedIps)
             currentHostIps.addAll(updatedIps)
-        } catch (e: SocketException) {}
+        } catch (e: Exception) {}
     }
 
     private fun updateListener(listener: UdpBroadcastListener) {
@@ -49,12 +50,14 @@ class UdpServerService {
         }
     }
 
-    fun start(interval: Long, listener: UdpBroadcastListener) {
+    fun start(interval: Long, port: Int, listener: UdpBroadcastListener) {
+        this.port = port
         initCurrentDeviceIps()
         updateListener(listener)
         timer.schedule(object: TimerTask(){
             override fun run() {
                 broadcast()
+                println("Called timer, Server start")
             }
         }, 0, interval)
     }
@@ -67,53 +70,11 @@ class UdpServerService {
     }
 
     private fun broadcast() {
-        try {
-            if(socket == null) {
-                socket = DatagramSocket(null)
-                val socketAddress = InetSocketAddress(InetAddress.getByName("0.0.0.0"), 8888)
-                socket!!.reuseAddress = true
-                socket!!.broadcast = true
-                socket!!.soTimeout = 0
-                socket!!.bind(socketAddress)
-            }
 
-            val recvBuf = ByteArray(15000)
-            val packet = DatagramPacket(recvBuf, recvBuf.size)
-            val recSocket = socket
-            recSocket?.receive(packet)
-
-            val host = Host(packet.address, String(packet.data).trim())
-
-            if(isHostClientToo || !currentHostIps.contains(host.inetAddress.hostAddress)) {
-                var handler = hostHandlerMap[host]
-                if(handler == null) {
-                    handler = StaleHostHandler(host, hostHandlerMap, listener)
-                    synchronized(this){
-                        hostHandlerMap.put(host, handler)
-                    }
-                    listener?.onHostUpdate(hostHandlerMap.keys)
-                } else if(hostNameChanged(host, hostHandlerMap)) {
-                    listener?.onHostUpdate(hostHandlerMap.keys)
-                }
-                stop()
-            }
-        } catch (e: SocketException) {
-            socket?.let {
-                it.close()
-                socket = null
-            }
-        } catch (e: UnknownHostException) {
-            socket?.let {
-                it.close()
-                socket = null
-            }
-        } catch (e: IOException) {
-            listener?.onReceiveFail()
-        }
     }
 
     private fun hostNameChanged(updatedHost: Host, hostHandler: MutableMap<Host, StaleHostHandler?>): Boolean {
-        hostHandler.forEach { (host, _) ->
+        hostHandlerMap.forEach { (host, _) ->
             if (updatedHost == host && updatedHost.name != host.name) {
                 hostHandlerMap[updatedHost] = hostHandlerMap.remove(host)
             }
@@ -122,8 +83,8 @@ class UdpServerService {
     }
 
     private class StaleHostHandler(private val host: Host,
-                                        private val hostHandlerMap: MutableMap<Host, StaleHostHandler?>,
-                                        private var listener: UdpBroadcastListener?) {
+                                   private val hostHandlerMap: MutableMap<Host, StaleHostHandler?>,
+                                   private var listener: UdpBroadcastListener?) {
 
         init {
             hostUpdate()

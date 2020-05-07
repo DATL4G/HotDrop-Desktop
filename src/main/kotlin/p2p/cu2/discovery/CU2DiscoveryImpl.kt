@@ -1,110 +1,89 @@
 package p2p.cu2.discovery
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
 import p2p.cu2.model.Host
 import java.util.concurrent.TimeUnit
 
 class CU2DiscoveryImpl(val discoverableTimeout: Long,
                        val discoveryTimeout: Long,
                        val discoverablePingInterval: Long,
-                       val listener: CU2Discovery.Listener) : CU2Discovery {
+                       val listener: CU2Discovery.Listener,
+                       port: Int,
+                       regex: Regex) : CU2Discovery {
+    override var isDiscoverable: Boolean = false
+        private set
+    override var isDiscovering: Boolean = false
+        private set
 
-    private var discoverable = false
-    private var discovering = false
-    private lateinit var discoverableDisposable: Disposable
-    private lateinit var discoveryDisposable: Disposable
-    private var currentPeers: MutableSet<Host> = mutableSetOf()
-    private var broadcastService: UdpBroadcastService? = null
-    private var serverService: UdpServerService? = null
+    private lateinit var mDiscoverableDisposable: Disposable
+    private lateinit var mDiscoveryDisposable: Disposable
+    private val mCurrentPeers: MutableSet<Host> = mutableSetOf()
 
-    override fun makeDiscoverable(hostName: String) {
-        if(!discoverable) {
-            startBroadcast(hostName)
-            discoverableDisposable = Observable.timer(discoverableTimeout, TimeUnit.MILLISECONDS, Schedulers.io())
+    override fun makeDiscoverable(hostName: String, mustMatch: String) {
+        if(!isDiscoverable) {
+            val hostJson = JSONObject(mapOf(Host.JSON_NAME to hostName, Host.JSON_FILTER_TEXT to mustMatch))
+            beDiscoverable(hostJson)
+            mDiscoverableDisposable = Observable.timer(discoverableTimeout, TimeUnit.MILLISECONDS, Schedulers.io())
                 .subscribe {
-                    if(discoverable) {
-                        stopBroadcast()
-                        listener.onDiscoverableTimeout()
+                    if (isDiscoverable) {
+                        stopBeingDiscoverable()
+                        val thread = Thread{ listener.onDiscoverableTimeout() }
+                        thread.start()
+                        thread.join()
                     }
                 }
         }
     }
 
     override fun makeNonDiscoverable() {
-        if(discoverable) {
-            stopBroadcast()
-            discoverableDisposable.dispose()
+        if (isDiscoverable) {
+            stopBeingDiscoverable()
+            mDiscoverableDisposable.dispose()
         }
     }
 
-    private fun startBroadcast(hostName: String) {
-        broadcastService = UdpBroadcastService()
-        broadcastService!!.start(hostName, discoverablePingInterval)
-        discoverable = true
+    private fun beDiscoverable(hostJson: JSONObject) {
+        TODO("start client")
+        isDiscoverable = true
     }
 
-    private fun stopBroadcast() {
-        broadcastService?.stop()
-        discoverable = false
+    private fun stopBeingDiscoverable() {
+        TODO("stop client")
+        isDiscoverable = false
     }
 
     override fun startDiscovery() {
-        if(!discovering) {
+        if (!isDiscovering) {
             startServer()
-            discoveryDisposable = Observable.timer(discoveryTimeout, TimeUnit.MILLISECONDS, Schedulers.io())
-                .subscribe{
-                    if(discovering) {
+            isDiscovering = true
+            mDiscoveryDisposable = Observable.timer(discoveryTimeout, TimeUnit.MILLISECONDS, Schedulers.io())
+                .subscribe {
+                    if (isDiscovering) {
                         stopDiscovery()
-                        listener.onDiscoveryTimeout()
+                        val thread = Thread{ listener.onDiscoveryTimeout() }
+                        thread.start()
+                        thread.join()
                     }
                 }
         }
     }
 
+    private fun startServer() {
+        TODO("start server")
+    }
+
     override fun stopDiscovery() {
-        if(discovering) {
-            stopServer()
-            discoveryDisposable.dispose()
+        if (isDiscovering) {
+            TODO("stop server")
+            isDiscovering = false
+            mDiscoveryDisposable.dispose()
         }
     }
 
-    private fun startServer() {
-        serverService = UdpServerService()
-        serverService!!.start(discoverablePingInterval * 2, object: UdpServerService.UdpBroadcastListener{
-            override fun onServerSetupFailed(e: Throwable) {
-                listener.onDiscoveryFailure(e)
-            }
+    override val allAvailablePeers: Set<Host> = mCurrentPeers
 
-            override fun onReceiveFail() {
-            }
-
-            override fun onHostUpdate(currentHosts: Set<Host>) {
-                currentPeers.retainAll(currentHosts)
-                currentPeers.addAll(currentHosts)
-                listener.onPeersUpdate(currentPeers)
-            }
-
-        })
-        discovering = true
-    }
-
-    private fun stopServer() {
-        serverService?.stop()
-        discovering = false
-    }
-
-    override fun getAllAvaiablePeers(): Set<Host> {
-        return currentPeers
-    }
-
-    override fun isDiscoverable(): Boolean {
-        return discoverable
-    }
-
-    override fun isDiscovering(): Boolean {
-        return discovering
-    }
 
 }

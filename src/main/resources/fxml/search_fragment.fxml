@@ -10,7 +10,7 @@
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="fragments.SearchFragment">
 
     <children>
-        <FAB styleClass="fab" alignment="CENTER">
+        <FAB styleClass="fab" alignment="CENTER" id="fabSearch" fx:id="fabSearch">
             <graphic>
                 <FontIcon iconColor="WHITE" iconLiteral="gmi-search" iconSize="24" text=""/>
             </graphic>

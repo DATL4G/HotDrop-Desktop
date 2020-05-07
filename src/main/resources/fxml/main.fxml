@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import org.kordamp.ikonli.javafx.*?>
+<?import view.*?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import view.FAB?>
 <BorderPane minHeight="500.0" minWidth="700.0" stylesheets="@./../css/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainView">
     <top>
         <HBox styleClass="toolbar" BorderPane.alignment="CENTER">
@@ -29,17 +30,17 @@
     <center>
         <AnchorPane id="centerPane" fx:id="centerPane" BorderPane.alignment="CENTER">
             <children>
-                <HBox viewOrder="9" styleClass="settings" AnchorPane.rightAnchor="0">
+                <HBox styleClass="settings" viewOrder="9" AnchorPane.rightAnchor="0">
                     <padding>
                         <Insets bottom="5" left="5" right="5" top="5" />
                     </padding>
                     <children>
-                        <JFXButton text="" onMouseClicked="#settingsDialog">
+                        <JFXButton onMouseClicked="#settingsDialog" text="">
                             <graphic>
                                 <FontIcon iconLiteral="gmi-tune" iconSize="24" />
                             </graphic>
                         </JFXButton>
-                        <JFXButton text="" onMouseClicked="#infoLayout">
+                        <JFXButton onMouseClicked="#infoLayout" text="">
                             <graphic>
                                 <FontIcon iconLiteral="gmi-info-outline" iconSize="24" />
                             </graphic>
@@ -47,11 +48,20 @@
                     </children>
                 </HBox>
 
-                <FAB viewOrder="9" styleClass="fab" AnchorPane.rightAnchor="16" AnchorPane.bottomAnchor="16">
+                <FAB styleClass="fab" viewOrder="9" AnchorPane.bottomAnchor="16" AnchorPane.rightAnchor="16">
                     <graphic>
                         <FontIcon iconColor="WHITE" iconLiteral="gmi-cloud" iconSize="24" onMouseClicked="#infoLayout" />
                     </graphic>
                 </FAB>
+
+                <StackPane viewOrder="11" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                   <children>
+                      <Circle fill="TRANSPARENT" radius="24.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="CENTER" />
+                   </children>
+                </StackPane>
+
+                <AnchorPane id="fragmentPane" fx:id="fragmentPane" viewOrder="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                </AnchorPane>
             </children>
         </AnchorPane>
     </center>

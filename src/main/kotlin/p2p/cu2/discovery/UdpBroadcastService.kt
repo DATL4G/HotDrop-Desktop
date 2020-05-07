@@ -1,30 +1,34 @@
 package p2p.cu2.discovery
 
-import java.io.IOException
+import org.json.JSONObject
 import java.lang.Exception
-import java.net.*
+import java.net.DatagramPacket
+import java.net.DatagramSocket
+import java.net.InetAddress
+import java.net.NetworkInterface
 import java.util.*
 
 class UdpBroadcastService {
 
-    private var hostName: String = InetAddress.getLocalHost().hostName
+    private lateinit var hostJson: JSONObject
     private var socket: DatagramSocket? = null
+    private var port: Int = 8888
     private var timer = Timer()
 
     init {
         try {
             socket = DatagramSocket()
             socket!!.broadcast = true
-        } catch (e: SocketException) {
-            e.printStackTrace()
-        }
+        } catch (e: Exception) { e.printStackTrace() }
     }
 
-    fun start(hostName: String, interval: Long) {
-        this.hostName = hostName
+    fun start(hostJson: JSONObject, interval: Long, port: Int) {
+        this.hostJson = hostJson
+        this.port = port
         timer.schedule(object: TimerTask(){
             override fun run() {
                 broadcast()
+                println("Called timer, Client start")
             }
         }, 0, interval)
     }
@@ -36,12 +40,11 @@ class UdpBroadcastService {
 
     private fun broadcast() {
         if (socket != null) {
-
             try {
-                val sendData = hostName.toByteArray()
+                val sendData = hostJson.toString().toByteArray()
 
                 try {
-                    val sendPacket = DatagramPacket(sendData, sendData.size, InetAddress.getByName("255.255.255.255"), 8888)
+                    val sendPacket = DatagramPacket(sendData, sendData.size, InetAddress.getByName("255.255.255.255"), port)
                     socket!!.send(sendPacket)
                 } catch (e: Exception) {}
 
@@ -49,7 +52,7 @@ class UdpBroadcastService {
                 while (interfaces.hasMoreElements()) {
                     val networkInterface = interfaces.nextElement()
 
-                    if(networkInterface.isLoopback || !networkInterface.isUp) {
+                    if (networkInterface.isLoopback || !networkInterface.isUp) {
                         continue
                     }
 
@@ -57,12 +60,12 @@ class UdpBroadcastService {
                         val broadcastAddress = it.broadcast
 
                         try {
-                            val sendPacket = DatagramPacket(sendData, sendData.size, broadcastAddress, 8888)
+                            val sendPacket = DatagramPacket(sendData, sendData.size, broadcastAddress, port)
                             socket!!.send(sendPacket)
                         } catch (e: Exception) {}
                     }
                 }
-            } catch (e: IOException) {}
+            } catch (e: Exception) {}
         }
     }
 }

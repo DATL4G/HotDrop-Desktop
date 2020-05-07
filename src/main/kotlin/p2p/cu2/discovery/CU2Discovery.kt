@@ -3,42 +3,54 @@ package p2p.cu2.discovery
 import p2p.cu2.model.Host
 
 interface CU2Discovery {
-    fun makeDiscoverable(hostName: String)
+    fun makeDiscoverable(hostName: String, mustMatch: String = "")
     fun makeNonDiscoverable()
     fun startDiscovery()
     fun stopDiscovery()
-    fun getAllAvaiablePeers(): Set<Host>
-    fun isDiscoverable(): Boolean
-    fun isDiscovering(): Boolean
+    val allAvailablePeers: Set<Host>
+    val isDiscoverable: Boolean
+    val isDiscovering: Boolean
 
     class Builder {
-        private var discoverableTimeout: Long = 60000
-        private var discoveryTimeout: Long = 60000
-        private var discoverablePingInterval: Long = 5000
-        private lateinit var listener: Listener
+        var mDiscoverableTimeout: Long = 60000
+        var mDiscoveryTimeout: Long = 60000
+        var mDiscoverablePingInterval: Long = 5000
+        lateinit var mListener: Listener
+        var mPort: Int = 8888
+        var mRegex: Regex = Regex("^$")
 
-        fun setDiscoverableTimeout(discoverableTimeout: Long): Builder {
-            this.discoverableTimeout = discoverableTimeout
+        fun setDiscoverableTimeoutMillis(discoverableTimeout: Long): Builder {
+            mDiscoverableTimeout = discoverableTimeout
             return this
         }
 
-        fun setDiscoveryTimeout(discoveryTimeout: Long): Builder {
-            this.discoveryTimeout = discoveryTimeout
+        fun setDiscoveryTimeoutMillis(discoveryTimeout: Long): Builder {
+            mDiscoveryTimeout = discoveryTimeout
             return this
         }
 
-        fun setDiscoverablePingInterval(discoverablePingInterval: Long): Builder {
-            this.discoverablePingInterval = discoverablePingInterval
+        fun setDiscoveryPingIntervalMillis(discoveryPingInterval: Long): Builder {
+            mDiscoverablePingInterval = discoveryPingInterval
             return this
         }
 
         fun setDiscoveryListener(listener: Listener): Builder {
-            this.listener = listener
+            mListener = listener
+            return this
+        }
+
+        fun setPort(port: Int): Builder {
+            mPort = port
+            return this
+        }
+
+        fun setFilter(regex: Regex): Builder {
+            mRegex = regex
             return this
         }
 
         fun build(): CU2Discovery {
-            return CU2DiscoveryImpl(discoverableTimeout, discoveryTimeout, discoverablePingInterval, listener)
+            return CU2DiscoveryImpl(mDiscoverableTimeout, mDiscoveryTimeout, mDiscoverablePingInterval, mListener, mPort, mRegex)
         }
     }
 

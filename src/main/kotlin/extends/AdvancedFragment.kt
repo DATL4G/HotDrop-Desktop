@@ -1,10 +1,12 @@
 package extends
 
+import javafx.application.Platform
 import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.layout.AnchorPane
 import tornadofx.Fragment
 import tornadofx.removeFromParent
+import java.lang.Exception
 
 abstract class AdvancedFragment(name: String? = null, icon: Node? = null) : Fragment(name, icon) {
     fun openURL(url: String) {
@@ -23,10 +25,13 @@ abstract class AdvancedFragment(name: String? = null, icon: Node? = null) : Frag
     }
 
     fun hideFragment() {
-        this.root.parent.requestLayout()
-        this.root.isFocusTraversable = false
-        this.root.isDisable = true
-        this.root.parent.requestFocus()
-        this.root.removeFromParent()
+        Platform.runLater {
+            try {
+                this.root.isFocusTraversable = false
+                this.root.isDisable = true
+                this.root.parent.requestFocus()
+                this.root.removeFromParent()
+            } catch (e: Exception) {}
+        }
     }
 }

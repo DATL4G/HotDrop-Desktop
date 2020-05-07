@@ -3,11 +3,12 @@ package fragments
 import extends.AdvancedFragment
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.StackPane
+import p2p.cu2.model.Host
 import utils.Device
 import view.DeviceListItem
 import java.net.InetAddress
 
-class ChooseDeviceFragment(devices: Array<Device>) : AdvancedFragment() {
+class ChooseDeviceFragment(hosts: Set<Host>) : AdvancedFragment() {
     override val root: StackPane by fxml("/fxml/choose_device_fragment.fxml", true)
 
     private val gridPane: GridPane by fxid()
@@ -19,13 +20,18 @@ class ChooseDeviceFragment(devices: Array<Device>) : AdvancedFragment() {
         applyZIndex()
 
         deviceClickListener = object: DeviceListItem.ClickListener{
-            override fun onClick(item: Device) {
+            override fun onClick(item: Host) {
                 mListener!!.onChooseFragmentInteraction(item)
             }
         }
 
         val deviceArrayList = ArrayList<DeviceListItem>()
+        /*
         devices.forEach {
+            deviceArrayList.add(DeviceListItem(it, deviceClickListener))
+        }
+         */
+        hosts.forEach {
             deviceArrayList.add(DeviceListItem(it, deviceClickListener))
         }
 
@@ -44,7 +50,11 @@ class ChooseDeviceFragment(devices: Array<Device>) : AdvancedFragment() {
         }
     }
 
+    fun setHosts(hosts: Set<Host>) {
+
+    }
+
     interface OnFragmentInteractionListener {
-        fun onChooseFragmentInteraction(device: Device)
+        fun onChooseFragmentInteraction(host: Host)
     }
 }

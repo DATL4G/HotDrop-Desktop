@@ -4,9 +4,10 @@ import extends.AdvancedFragment
 import javafx.scene.Parent
 import javafx.scene.control.Label
 import javafx.scene.layout.StackPane
+import p2p.cu2.model.Host
 import utils.Device
 
-class TransferFragment(device: Device) : AdvancedFragment() {
+class TransferFragment(host: Host) : AdvancedFragment() {
     override val root: StackPane by fxml("/fxml/transfer_fragment.fxml", true)
 
     private val hostName: Label by fxid()
@@ -15,6 +16,6 @@ class TransferFragment(device: Device) : AdvancedFragment() {
         applyMaxSize()
         applyZIndex()
 
-        hostName.text = device.name
+        hostName.text = host.name
     }
 }
