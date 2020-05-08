@@ -48,7 +48,7 @@ dependencies {
     implementation 'no.tornado:tornadofx:1.7.19'
 
     implementation 'org.openjfx:javafx:11.0.2'
-    implementation 'org.openjfx:javafx-base:11.0.2'
+    implementation 'org.openjfx:javafx-base:14.0.1'
     implementation 'org.openjfx:javafx-controls:11.0.2'
 
     implementation 'com.jfoenix:jfoenix:9.0.8'
